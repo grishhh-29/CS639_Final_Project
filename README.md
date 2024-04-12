@@ -38,10 +38,10 @@ We plan to develop our solution using modern technologies and APIs to ensure a r
 Kotlin, Jetpack Compose, Firebase, SharedPreferences etc.
 
 References:
-Official website- [Firebase](https://firebase.google.com/)
-Documentation- [Firebase Docs](https://firebase.google.com/docs)
-Android- [Android](https://www.android.com/digital-wellbeing/)
-Lighthouse- [Lighthouse](https://www.lighthousehw.org/) - Resources and Tools to Support Heath and Wellness
-Stack Overflow- [Stack Overflow](https://stackoverflow.com/) - A popular Q&A platform for developers.
+Official website- [Firebase](https://firebase.google.com/),
+Documentation- [Firebase Docs](https://firebase.google.com/docs),
+Android- [Android](https://www.android.com/digital-wellbeing/),
+Lighthouse- [Lighthouse](https://www.lighthousehw.org/) - Resources and Tools to Support Heath and Wellness,
+Stack Overflow- [Stack Overflow](https://stackoverflow.com/) - A popular Q&A platform for developers,
 GitHub- [GitHub](https://github.com/) - A platform for hosting and collaborating on code.
 
