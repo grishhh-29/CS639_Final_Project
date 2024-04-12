@@ -28,13 +28,17 @@ Our solution stands out due to its comprehensive approach towards promoting holi
 
 Three solutions similar or related to ours in the Google Play Store include:
 
-i. MyFitnessPal: A popular app for tracking food intake and exercise, but lacks comprehensive meditation features.
-ii. Calm: Offers meditation and mindfulness exercises, but does not include diet planning or calorie tracking features.
-iii. Lifesum: Provides diet tracking and meal planning features, but does not focus extensively on meditation and mindfulness practices.
+MyFitnessPal: A popular app for tracking food intake and exercise, but lacks comprehensive meditation features.
+
+Calm: Offers meditation and mindfulness exercises, but does not include diet planning or calorie tracking features.
+
+Lifesum: Provides diet tracking and meal planning features, but does not focus extensively on meditation and mindfulness practices.
+
 Our solution combines the best elements of these existing apps while offering a unique blend of diet planning, calorie tracking, and meditation features in one platform.
 
 5. Technologies & APIs
 We plan to develop our solution using modern technologies and APIs to ensure a robust and user-friendly experience. Some of the key technologies and APIs we will utilize include:
+
 Kotlin, Jetpack Compose, Firebase, SharedPreferences etc.
 
 References:
