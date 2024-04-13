@@ -42,7 +42,7 @@ Our solution stands out due to its comprehensive approach towards promoting holi
 
 Three solutions similar or related to ours in the Google Play Store include: 
 
-MyFitnessPal: A popular app for tracking food intake and exercise, but lacks comprehensive meditation features. 
+Spoonacular: A popular app for tracking food intake and exercise, but lacks comprehensive meditation features. 
 
 Calm: Offers meditation and mindfulness exercises, but does not include diet planning or calorie tracking features. 
 
@@ -55,14 +55,16 @@ Screenhots of above mentioned Apps:
 
 ![Lifesum](https://mrfreetools.com/wp-content/uploads/2022/06/Screenshot-Lifesum.jpg) 
 
-![MyFitnessPal](https://i.pcmag.com/imagery/reviews/065uaiCApaX7sVvWBH2jmtJ-20.fit_lim.size_1050x.jpg) 
+![Spoonacular](https://i.ytimg.com/vi/8-QPWsZJY5k/hqdefault.jpg?sqp=-oaymwEmCOADEOgC8quKqQMa8AEB-AGWA4AC0AWKAgwIABABGBEgcihFMA8=&rs=AOn4CLC6_l1QUHgS3DwId8VusnJGf_wwuw) 
 
 5. Technologies & APIs
 We plan to develop our solution using modern technologies and APIs to ensure a robust and user-friendly experience. Some of the key technologies and APIs we will utilize include: 
 
-Kotlin, Jetpack Compose, Firebase, SharedPreferences etc. 
+Kotlin, Jetpack Compose, Firebase, SharedPreferences, API, Retrofit etc. 
 
 __References:__
+
+API calling using Retrofit - [Geeks for Geeks](https://www.geeksforgeeks.org/how-to-post-data-to-api-using-retrofit-in-android-using-jetpack-compose/)
 
 Official website- [Firebase](https://firebase.google.com/) 
 
