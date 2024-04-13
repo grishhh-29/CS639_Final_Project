@@ -1,11 +1,10 @@
 # CS639_Final_Project
 Team : 7
-
 __Team Members :__
 
 __Vishesh Sharma__
 
-__Grishma Pandiyath__
+__Garishma Pandiyath__
 
 __Kassandra Camarillo__
 
