@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.hardware.sensor.stepcounter" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.FinalProject"
+        tools:targetApi="31">
+        <activity
+            android:name=".dietplan.LoginActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FinalProject">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- SignUpActivity -->
+        <activity
+            android:name=".dietplan.SignUpActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FinalProject"
+            tools:ignore="MissingClass" /> <!-- SuccessActivity -->
+        <activity
+            android:name=".dietplan.SuccessActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FinalProject"
+            tools:ignore="MissingClass" />
+        <activity
+            android:name=".dietplan.ForgotPassword"
+            android:exported="true"
+            android:theme="@style/Theme.FinalProject"
+            tools:ignore="MissingClass" />
+        <activity
+            android:name=".dietplan.PasswordResetScreen"
+            android:exported="true"
+            android:theme="@style/Theme.FinalProject"
+            tools:ignore="MissingClass" />
+        <activity
+            android:name=".dietplan.MyDietPlanner"
+            android:exported="true"
+            android:theme="@style/Theme.FinalProject"
+            tools:ignore="MissingClass" />
+        <activity
+            android:name=".dietplan.SexSelectionActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FinalProject"
+            tools:ignore="MissingClass" />
+        <activity
+            android:name=".dietplan.DietActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FinalProject"
+            tools:ignore="MissingClass" />
+        <activity
+            android:name=".dietplan.loginWithGoogle"
+            android:exported="true"
+            android:theme="@style/Theme.FinalProject"
+            tools:ignore="MissingClass" />
+        <activity
+            android:name=".dietplan.HeightScreen"
+            android:exported="true"
+            android:theme="@style/Theme.FinalProject"
+            tools:ignore="MissingClass" />
+        <activity
+            android:name=".dietplan.CategorizeScreen"
+            android:exported="true"
+            android:theme="@style/Theme.FinalProject"
+            tools:ignore="MissingClass" />
+        <activity
+            android:name=".dietplan.PlanMealScreen"
+            android:exported="true"
+            android:theme="@style/Theme.FinalProject"
+            tools:ignore="MissingClass" />
+        <activity
+            android:name=".dietplan.UserProfile"
+            android:exported="true"
+            android:theme="@style/Theme.FinalProject"
+            tools:ignore="MissingClass" />
+    </application>
+
+</manifest>
