@@ -149,6 +149,9 @@ fun WorkoutScreen() {
                 val currentDate = LocalDate.now()
                 val workoutDateManager = WorkoutDateManager(context) // Pass the appropriate context here
                 workoutDateManager.addWorkoutDate(currentDate)
+                HeadspaceScore.setScore(HeadspaceScore.getScore() + 10)
+                val currentScore = HeadspaceScore.getScore()
+                ScoreInSharedPreferences.addScoreToSharedPreferences(context,currentScore)
             }
         }
 

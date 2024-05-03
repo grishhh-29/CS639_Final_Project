@@ -127,6 +127,12 @@ fun HomeScreen(){
                         lightColor = Beige1,
                         mediumColor = Beige2,
                         darkColor = Beige3
+                    ),
+                    Feature(
+                        title = "Check my Heads-pace Score",
+                        lightColor = Beige1,
+                        mediumColor = Beige2,
+                        darkColor = Beige3
                     )
                 )
             )
@@ -341,6 +347,8 @@ fun FeatureItem(
                             "Less time to fit? Dont Worry" -> navigateToMyFitness(context)
                             "Calming sounds" -> navigateToCalmingSounds(context)
                             "Tips for sleeping" -> navigateToSleepTips(context)
+                            "Sleep meditation" -> navigateToSleepMeditation(context)
+                            "Check my Heads-pace Score" -> navigateToMyScore(context)
                             else -> { /* Do nothing */ }
                         }
                     }
@@ -379,6 +387,20 @@ private fun navigateToCalmingSounds(context: Context) {
 }
 private fun navigateToSleepTips(context: Context) {
     val intent = Intent(context, SleepTipsActivity::class.java).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    }
+    context.startActivity(intent)
+    (context as? Activity)?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+}
+private fun navigateToSleepMeditation(context: Context) {
+    val intent = Intent(context, SleepMeditationActivity::class.java).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    }
+    context.startActivity(intent)
+    (context as? Activity)?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+}
+private fun navigateToMyScore(context: Context) {
+    val intent = Intent(context, MyScore::class.java).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
     }
     context.startActivity(intent)

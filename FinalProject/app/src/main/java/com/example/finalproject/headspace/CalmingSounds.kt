@@ -163,6 +163,9 @@ fun CalmingSoundItem(
                     mediaPlayer.prepare()
                     mediaPlayer.start()
                 }
+                HeadspaceScore.setScore(HeadspaceScore.getScore() + 5)
+                val currentScore = HeadspaceScore.getScore()
+                ScoreInSharedPreferences.addScoreToSharedPreferences(context,currentScore)
             },
             modifier = Modifier.size(64.dp)
         ) {
@@ -175,8 +178,6 @@ fun CalmingSoundItem(
         }
     }
 }
-
-
 
 private fun navigateToHeadSpaceHome(context: Context) {
     val intent = Intent(context, HeadSpaceHome::class.java).apply {
