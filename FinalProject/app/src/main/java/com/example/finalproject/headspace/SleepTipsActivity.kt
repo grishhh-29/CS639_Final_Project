@@ -33,9 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-
 
 
 class SleepTipsActivity : ComponentActivity() {
@@ -61,24 +59,36 @@ fun SleepTipsScreen() {
         "Include physical activity in your daily routine" to "Regular physical activity can promote better sleep. However, avoid being active too close to bedtime. Spending time outside every day might be helpful, too.",
         "Manage worries" to "Try to resolve your worries or concerns before bedtime. Jot down what's on your mind and then set it aside for tomorrow. Stress management might help. Start with the basics, such as getting organized, setting priorities, and delegating tasks. Meditation also can ease anxiety.",
         "Get checked" to "An urge to move your legs, snoring, and a burning pain in your stomach, chest, or throat are symptoms of three common sleep disrupters—restless legs syndrome, sleep apnea, and gastroesophageal reflux disease or GERD. If these symptoms are keeping you up at night or making you sleepy during the day, see your doctor for an evaluation.",
-        "Avoid alcohol and caffeine" to "If you do have a snack before bed, wine and chocolate shouldn't be part of it. Chocolate contains caffeine, which is a stimulant. Surprisingly, alcohol has a similar effect. It makes you a little sleepy, but it's actually a stimulant and it disrupts sleep during the night. Also stay away from anything acidic (such as citrus fruits and juices) or spicy, which can give you heartburn."
+        "Avoid alcohol and caffeine" to "If you do have a snack before bed, wine and chocolate shouldn't be part of it. Chocolate contains caffeine, which is a stimulant. Surprisingly, alcohol has a similar effect. It makes you a little sleepy, but it's actually a stimulant and it disrupts sleep during the night. Also stay away from anything acidic (such as citrus fruits and juices) or spicy, which can give you heartburn.",
+        "Increase Bright light Exposure" to "Your body has a natural time-keeping clock known as your circadian rhythm. It affects your brain, body, and hormones, helping you stay awake and telling your body when it’s time to sleep. Natural sunlight or bright light during the day helps keep your circadian rhythm healthy. This improves daytime energy, as well as nighttime sleep quality and duration.In people with insomnia, daytime bright light exposure improved sleep quality and durationTrusted Source. It also reduced the time it took to fall asleep by 83%. A similar study in older adults found that 2 hoursTrusted Source of bright light exposure during the day increased the amount of sleep by 2 hours and sleep efficiency by 80%",
+        "Reduce blue light exposure" to "Exposure to light during the day is beneficial, but nighttime light exposure has the opposite effect.Blue light — which electronic devices like smartphones and computers emit in large amounts — is the worst in this regard.\n" +
+                "There are several popular methods you can use to reduce nighttime blue light exposure. These include:\n" +
+                "I) Wear glasses that block blue light.\n" +
+                "II) Download an app such as f.lux to block blue light on your laptop or computer.\n" +
+                "III) Install an app that blocks blue light on your smartphone. These are available for both iPhones and Android models.\n" +
+                "IV) Stop watching TV and turn off any bright lights 2 hours before heading to bed.",
+        "Take a melatonin supplement" to "Melatonin is a key sleep hormoneTrusted Source that tells your brain when it’s time to relax and head to bed. Melatonin supplements are an extremely popular sleep aid. Often used to treat insomniaTrusted Source, melatonin may be one of the easiest ways to fall asleep faster. In one study, taking 2 mg of melatonin before bed improved sleep quality and energy the next day and helped people fall asleep faster.",
+        "Set room temperature" to "Body and bedroom temperature can also profoundly affect sleep quality. As you may have experienced during the summer or in hot locations, it can be very hard to get a good night’s sleep when it’s too warm. One studyTrusted Source found that bedroom temperature affected sleep quality more than external noise. Other studiesTrusted Source reveal that increased body and bedroom temperature can decrease sleep quality and increase wakefulness. Around 70°F (20°C) seems to be a comfortable temperature for most people, although it depends on your preferences and habits"
     )
-    /*Column(
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ){
-
-    }*/
-    Text(
-        text = "Tips...",
-        style = MaterialTheme.typography.bodyLarge,
-        fontWeight = FontWeight.Bold,
-        fontStyle = FontStyle.Italic,
-        modifier = Modifier.padding(start = 8.dp)
-    )
-    LazyColumn {
-        items(tips) { (title, content) ->
-            ExpandableTipSection(title = title, content = content)
+    Column(
+        modifier = Modifier
+            .background(Color.LightGray)
+    ) {
+        Box(modifier = Modifier.fillMaxWidth()) {
+            Text(
+                text = "Tips...",
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Bold,
+                fontStyle = FontStyle.Italic,
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(top = 16.dp)
+            )
+        }
+        LazyColumn {
+            items(tips) { (title, content) ->
+                ExpandableTipSection(title = title, content = content)
+            }
         }
     }
 }
@@ -88,19 +98,18 @@ fun ExpandableTipSection(title: String, content: String) {
     var expanded by remember { mutableStateOf(false) }
     var bookmarked by remember { mutableStateOf(false) }
     val context = LocalContext.current
-    val sharedPreferences = context.getSharedPreferences(
+    /*val sharedPreferences = context.getSharedPreferences(
         "FavoriteTips",
         Context.MODE_PRIVATE
     )
 
-    val tipKey = "Tip_$title"
+    val tipKey = "Tip_$title"*/
 
     // Load the favorite status from SharedPreferences
-    bookmarked = sharedPreferences.getBoolean(tipKey, false)
+    //bookmarked = sharedPreferences.getBoolean(tipKey, false)
 
     Column(
         modifier = Modifier
-            .background(Color.LightGray)
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Spacer(modifier = Modifier.height(20.dp))
@@ -127,7 +136,13 @@ fun ExpandableTipSection(title: String, content: String) {
                     onClick = {
                         bookmarked = !bookmarked
                         // Save the favorite status to SharedPreferences
-                        sharedPreferences.edit().putBoolean(tipKey, bookmarked).apply()
+                        //sharedPreferences.edit().putBoolean(tipKey, bookmarked).apply()
+                        // Increment the Headspace score by 10 if the content is marked as favorite
+                        if (bookmarked) {
+                            HeadspaceScore.setScore(HeadspaceScore.getScore() + 10)
+                            val currentScore = HeadspaceScore.getScore()
+                            ScoreInSharedPreferences.addScoreToSharedPreferences(context,currentScore)
+                        }
                     },
                     modifier = Modifier.size(24.dp)
                 ) {
