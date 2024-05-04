@@ -8,9 +8,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
 import com.example.finalproject.R
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -45,21 +49,31 @@ class MyScore : ComponentActivity() {
 fun MyScoreScreen() {
     val context = LocalContext.current
     val score = ScoreInSharedPreferences.getStoredScore(context)
-
     Box(
         modifier = Modifier
             .padding(16.dp)
             .size(120.dp)
-            .background(color = Color.LightGray, shape = CircleShape)
+            .background(color = Color.Yellow, shape = CircleShape)
             .clip(CircleShape)
             .border(2.dp, color = Color.Black, shape = CircleShape),
         contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = score.toString(),
-            style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold),
-            color = Color.Black
-        )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "My Score",
+                style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold),
+                color = Color.Black
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = score.toString(),
+                style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold),
+                color = Color.Black
+            )
+        }
     }
 }
     private fun navigateToHeadSpaceHome(context: Context) {
