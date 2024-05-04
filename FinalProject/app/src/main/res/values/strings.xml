@@ -4,4 +4,7 @@
     <string name="id2">995665894-gtpvdgjrgisq0eeike7ht39134tch0m3.apps.googleusercontent.com</string>
     <string name="id3">995665894-33cn8vjeftk52p6cnm9r14ts4lgqgku8.apps.googleusercontent.com</string>
 
+    <!--TODO(Step 3 - Defining the image content Description in string.xml)-->
+    <!--START-->
+    <string name="image">image</string>
 </resources>

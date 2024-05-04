@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("kotlin-kapt")
 }
 
 android {
@@ -40,6 +41,7 @@ android {
     }
     buildFeatures {
         compose = true
+        dataBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -68,6 +70,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-storage-ktx")
     implementation ("com.google.android.gms:play-services-safetynet:18.0.1")
     implementation ("com.android.volley:volley:1.2.1")
     implementation ("androidx.navigation:navigation-compose:2.7.7")
@@ -83,9 +86,15 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+    implementation("com.google.firebase:firebase-firestore-ktx")
 
     // Coil
     implementation("io.coil-kt:coil-compose:2.4.0")
+
+
+    implementation("androidx.compose.material:material:1.6.6")
+
+
 
     // Kotlin
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
@@ -93,6 +102,16 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.activity:activity:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    //kotlin extensions for coroutine support with room
+    implementation("androidx.room:room-ktx:2.6.1")
+    //kotlin extension for coroutine support with activities
+    implementation("androidx.activity:activity-ktx:1.9.0")
+
+    implementation("androidx.browser:browser:1.8.0")
+
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

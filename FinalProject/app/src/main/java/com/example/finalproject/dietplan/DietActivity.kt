@@ -53,7 +53,7 @@ class DietActivity : ComponentActivity() {
         mediaPlayer?.release()
         mediaPlayer = null
         val context = this
-        navigateToHeightScreen(context)
+        navigateToSexSelection(context)
     }
 }
 
@@ -62,14 +62,6 @@ class DietActivity : ComponentActivity() {
 fun DietScreen(context: Context,weight: Double,height:Double) {
     val videoUrl = "https://drive.google.com/uc?export=download&id=1lzgCZrWGII5iPy4tgo0L0FvKJYTzdd4y"
     val videoUri = Uri.parse(videoUrl)
-    // Calculate BMI
-    val bmi = calculateBMI(weight, height)
-
-    // Determine BMI category
-    val bmiCategory = getBMICategory(bmi)
-
-    // Navigate to the next screen based on BMI category
-    //navigateToNextScreen(context, bmiCategory)
     val mediaPlayer = remember {
         MediaPlayer().apply {
             setDataSource(context, videoUri)
@@ -172,21 +164,6 @@ fun BouncingButton(
 }
 enum class BounceState { PRESSED, RELEASED }
 
-// Calculate BMI based on user's weight and height
-fun calculateBMI(weight: Double, height: Double): Double {
-    return weight / (height * height)
-}
-
-// Determine BMI category based on BMI value
-fun getBMICategory(bmi: Double): String {
-    return when {
-        bmi < 18.5 -> "Underweight"
-        bmi < 25 -> "Normal weight"
-        bmi < 30 -> "Overweight"
-        else -> "Obese"
-    }
-}
-
 private fun navigateToNextScreen(context: Context, weight: Double, height: Double) {
     val intent = Intent(context, CategorizeScreen::class.java).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -196,8 +173,8 @@ private fun navigateToNextScreen(context: Context, weight: Double, height: Doubl
     context.startActivity(intent)
     (context as? Activity)?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
 }
-private fun navigateToHeightScreen(context: Context) {
-    val intent = Intent(context, HeightScreen::class.java).apply {
+private fun navigateToSexSelection(context: Context) {
+    val intent = Intent(context, SexSelectionActivity::class.java).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
     }
     context.startActivity(intent)

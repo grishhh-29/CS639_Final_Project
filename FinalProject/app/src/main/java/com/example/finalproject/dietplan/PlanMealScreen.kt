@@ -1,5 +1,6 @@
 package com.example.finalproject.dietplan
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -24,13 +25,22 @@ import retrofit2.Callback
 import retrofit2.Response
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import com.example.finalproject.R
 
 class PlanMealScreen : ComponentActivity() {
@@ -42,7 +52,6 @@ class PlanMealScreen : ComponentActivity() {
             val timeFrame = intent.getStringExtra("TIME_FRAME") ?: "day"
             val targetCalories = intent.getIntExtra("TARGET_CALORIES", 0)
             val diet = intent.getStringExtra("DIET_TYPE") ?: "vegan"
-            //DietScreen(this)
             // Initialize Retrofit service
             apiService = MealPlanner.instance
             // Call generateMealPlan() when the activity is created
@@ -61,7 +70,7 @@ class PlanMealScreen : ComponentActivity() {
         mediaPlayer?.release()
         mediaPlayer = null
         val context = this
-        navigateToSexSelection(context)
+        navigateToCategorizeScreen(context)
     }
 }
 
@@ -94,7 +103,6 @@ fun DietActivity(apiService: SpoonacularApiService, timeFrame: String, targetCal
     if (mealPlan != null) {
         MealPlanScreen(mealPlan)
     } else {
-        Toast.makeText(context, "Failed to fetch meal plan. Please try again.", Toast.LENGTH_SHORT).show()
     }
 }
 @Composable
@@ -127,15 +135,15 @@ fun DietActivity1(apiService: SpoonacularApiService, timeFrame: String, targetCa
     if (mealPlan != null) {
         MealPlanScreen1(mealPlan)
     } else {
-        Toast.makeText(context, "Failed to fetch meal plan. Please try again.", Toast.LENGTH_SHORT).show()
     }
 }
 
-private fun navigateToSexSelection(context: Context) {
-    val intent = Intent(context, SexSelectionActivity::class.java).apply {
+private fun navigateToCategorizeScreen(context: Context) {
+    val intent = Intent(context, CategorizeScreen::class.java).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
     }
     context.startActivity(intent)
+    (context as? Activity)?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
 }
 @Composable
 fun MealPlanScreen(mealPlan: MealNutrients) {
@@ -165,14 +173,23 @@ fun MealPlanScreen(mealPlan: MealNutrients) {
     }
 @Composable
 fun MealPlanScreen1(mealPlan: Day) {
-    Surface(modifier = Modifier.fillMaxSize()) {
-        val scrollState = rememberScrollState()
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-                .verticalScroll(scrollState)
-        ) {
-            // Display meals section
+    Text(
+        text = "Here's you personalised Diet Plan",
+        style = TextStyle(
+            fontWeight = FontWeight.Bold,
+            fontSize = 16.sp,
+            color = Color.Black,
+            fontStyle = FontStyle.Italic
+        ),
+        modifier = Modifier.padding(bottom = 16.dp)
+    )
+    val scrollState = rememberLazyListState()
+    LazyColumn(
+        state = scrollState,
+        modifier = Modifier.padding(16.dp)
+    ) {
+        // Display meals section
+        item {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -194,8 +211,10 @@ fun MealPlanScreen1(mealPlan: Day) {
                     }
                 }
             }
+        }
 
-            // Display nutrients section
+        // Display nutrients section
+        item {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -219,11 +238,11 @@ fun MealPlanScreen1(mealPlan: Day) {
     }
 }
 
-
 @Composable
 fun NutrientsCard(nutrients: Nutrients) {
     MaterialTheme {
-        Surface {
+        Surface(modifier = Modifier.fillMaxSize(),
+            color = Color.Blue)  {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(text = "Nutrients", style = MaterialTheme.typography.headlineMedium)
                 Text(text = "Calories: ${nutrients.calories}")
@@ -235,17 +254,20 @@ fun NutrientsCard(nutrients: Nutrients) {
     }
 }
 
+
+
 @Composable
 fun MealCard(meal: Meal) {
     MaterialTheme {
-        Surface {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Text(text = "Meal", style = MaterialTheme.typography.headlineMedium)
-                Text(text = "Title: ${meal.title}")
-                Text(text = "Ready in minutes: ${meal.readyInMinutes}")
-                Text(text = "Servings: ${meal.servings}")
-                Text(text = "Source URL: ${meal.sourceUrl}")
+        Surface(modifier = Modifier.fillMaxSize(),
+            color = Color.Yellow) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(text = "Meal", style = MaterialTheme.typography.headlineMedium)
+                    Text(text = "Title: ${meal.title}")
+                    Text(text = "Ready in minutes: ${meal.readyInMinutes}")
+                    Text(text = "Servings: ${meal.servings}")
+                    Text(text = "Source URL: ${meal.sourceUrl}")
+                }
             }
         }
     }
-}

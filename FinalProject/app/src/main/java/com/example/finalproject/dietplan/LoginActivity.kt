@@ -53,16 +53,15 @@ class LoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
         sharedPreferences = getSharedPreferences("login_status", Context.MODE_PRIVATE)
-
         // Check if user is already logged in
         if (sharedPreferences.getBoolean("is_logged_in", false)) {
-            navigateToSuccessActivity(this)
+                navigateToSuccessActivity(this)
             finish()
             return
         }
 
         setContent {
-            LoginScreen(auth, sharedPreferences)
+                LoginScreen(auth, sharedPreferences)
         }
     }
 }
@@ -74,7 +73,6 @@ fun LoginScreen(auth: FirebaseAuth,sharedPreferences: SharedPreferences) {
     val passwordState = remember { mutableStateOf("") }
     val context = LocalContext.current
     val images = listOf(R.drawable.well2, R.drawable.well1, R.drawable.well3)
-    var enableLogin by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -92,7 +90,6 @@ fun LoginScreen(auth: FirebaseAuth,sharedPreferences: SharedPreferences) {
             modifier = Modifier.padding(bottom = 16.dp)
         )
         Spacer(modifier = Modifier.height(16.dp))
-
         LazyRow(
             modifier = Modifier
                 .weight(1f)
@@ -102,40 +99,27 @@ fun LoginScreen(auth: FirebaseAuth,sharedPreferences: SharedPreferences) {
                     painter = painterResource(id = images[index]),
                     contentDescription = null,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1f)
-                        .padding(4.dp),
+                        .fillMaxWidth(),
                     contentScale = ContentScale.FillBounds
                 )
             }
         }
-
-
         Spacer(modifier = Modifier.height(16.dp))
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             TextField(
                 value = emailState.value,
-                onValueChange = {
-                    emailState.value = it
-                    enableLogin = it.isNotEmpty() && passwordState.value.isNotEmpty()
-                },
+                onValueChange = { emailState.value = it },
                 label = { BasicText(text = "Email") },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
-
             Spacer(modifier = Modifier.height(16.dp))
-
             var passwordVisibility by remember { mutableStateOf(false) }
-
             TextField(
                 value = passwordState.value,
-                onValueChange = {
-                    passwordState.value = it
-                    enableLogin = emailState.value.isNotEmpty() && it.isNotEmpty()
-                },
+                onValueChange = { passwordState.value = it },
                 label = { BasicText(text = "Password") },
                 visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
                 modifier = Modifier.fillMaxWidth(),
@@ -151,16 +135,21 @@ fun LoginScreen(auth: FirebaseAuth,sharedPreferences: SharedPreferences) {
             )
 
             Spacer(modifier = Modifier.height(16.dp))
-
             ElevatedButton(
                 onClick = {
-                    login(auth, context, emailState.value, passwordState.value, sharedPreferences)
+                    login(
+                        auth,
+                        context,
+                        emailState.value,
+                        passwordState.value,
+                        sharedPreferences
+                    )
                 },
-                modifier = Modifier.fillMaxWidth(),
-                enabled = enableLogin // Enable button only when both fields are not empty
+                modifier = Modifier.fillMaxWidth()
             ) {
                 BasicText(text = "Login")
             }
+
             Spacer(modifier = Modifier.height(16.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -232,11 +221,11 @@ private fun login(auth: FirebaseAuth,context: Context, email: String, password: 
                             if (task.isSuccessful) {
                                 // Successfully signed in with email/password
                                 Toast.makeText(context, "Login successful", Toast.LENGTH_SHORT).show()
-                                sharedPreferences.edit {
-                                    putBoolean("is_logged_in", true)
-                                }
-                                navigateToSuccessActivity(context)
-                            } else {
+                                    sharedPreferences.edit {
+                                        putBoolean("is_logged_in", true)
+                                    }
+                                    navigateToSuccessActivity(context)
+                            }else {
                                 // Handle sign-in failure
                                 Toast.makeText(context, "Invalid credentials. Please try again.", Toast.LENGTH_SHORT).show()
                             }
@@ -244,7 +233,7 @@ private fun login(auth: FirebaseAuth,context: Context, email: String, password: 
                 }
             } else {
                 // Handle error fetching sign-in methods
-                Toast.makeText(context, "Error. Please try again.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Error fetching sign-in methods. Please try again.", Toast.LENGTH_SHORT).show()
             }
         }
 }

@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="hint_text_color">#F0F0F0</color>
     <color name="red_color">#FF0000</color>
+
+    <color name="colorPrimary">#B2212121</color>
+    <color name="colorPrimaryDark">#B2212121</color>
+    <color name="colorAccent">#008F24</color>
+    <color name="toolbar_color_control_normal">#000000</color>
 </resources>

@@ -10,6 +10,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ElevatedButton
@@ -50,7 +52,6 @@ fun CategoryScreen(context: Context, weight: Double, height: Double) {
     var targetCalories by remember { mutableStateOf(TextFieldValue()) }
     val radioOptions = listOf("day","week")
     val (timeFrame, onOptionSelected) = remember { mutableStateOf(radioOptions[1] ) }
-    //val radioOptions1 = listOf("Gluten Free","Whole30","Low FODMAP","Primal","Paleo","Pescetarian","Vegan","Lacto-Vegetarian","Vegetarian","Ketogenic")
     val radioOptions1 = listOf("Whole30","primal","paleo","vegan","vegatarian","Ketogenic")
     val (diet, onOptionSel) = remember { mutableStateOf(radioOptions1[1] ) }
     Box(modifier = Modifier.fillMaxSize()) {
@@ -94,7 +95,7 @@ fun CategoryScreen(context: Context, weight: Double, height: Double) {
                         )
                         Text(
                             text = text,
-                            style = TextStyle(fontSize = 12.sp ,fontWeight = FontWeight.Bold),
+                            style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold),
                             modifier = Modifier.padding(start = 16.dp)
                         )
                     }
@@ -126,32 +127,33 @@ fun CategoryScreen(context: Context, weight: Double, height: Double) {
                 color = Color.Black,
                 style = TextStyle(fontWeight = FontWeight.Bold)
             )
-                Column{
-                    radioOptions1.forEach { text ->
-                        Row(
-                            Modifier
-                                .fillMaxWidth()
-                                .selectable(
-                                    selected = (text == diet),
-                                    onClick = {
-                                        onOptionSel(text)
-                                    }
-                                )
-                                .padding(horizontal = 16.dp)
-                        ) {
-                            RadioButton(
+            LazyColumn {
+                items(radioOptions1) { text ->
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .selectable(
                                 selected = (text == diet),
-                                onClick = { onOptionSel(text) }
+                                onClick = {
+                                    onOptionSel(text)
+                                }
                             )
-                            Text(
-                                text = text,
-                                style = TextStyle(fontSize = 12.sp ,fontWeight = FontWeight.Bold),
-                                modifier = Modifier.padding(start = 16.dp)
-                            )
-                        }
+                            .padding(horizontal = 16.dp)
+                    ) {
+                        RadioButton(
+                            selected = (text == diet),
+                            onClick = { onOptionSel(text) }
+                        )
+                        Text(
+                            text = text,
+                            style = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Bold),
+                            modifier = Modifier.padding(start = 16.dp)
+                        )
                     }
                 }
+            }
         }
+    }
 
             val calories = targetCalories.text.toIntOrNull() ?: 0
             Log.d("TAG", "Target Calories: $calories")
@@ -166,7 +168,6 @@ fun CategoryScreen(context: Context, weight: Double, height: Double) {
                 Text(text = "Generate Diet Plan")
             }
     }
-}
 
 // Function to navigate to the next screen
 fun navigatetoPlanMealScreen(

@@ -127,7 +127,7 @@ fun SexSelectionButtons(goal: String,context:Context) {
         Button(
             onClick = {
                 // Navigate to the next screen if a sex is selected
-                navigateToHeightScreen(context)
+                navigateToDietActivity(context)
             },
             enabled = true, // Enable button only if a sex is selected
             modifier = Modifier.fillMaxWidth()
@@ -144,8 +144,8 @@ private fun navigateToMyDietPlanner(context: Context) {
     context.startActivity(intent)
     (context as? Activity)?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
 }
-private fun navigateToHeightScreen(context: Context) {
-    val intent = Intent(context, HeightScreen::class.java).apply {
+private fun navigateToDietActivity(context: Context) {
+    val intent = Intent(context, DietActivity::class.java).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
     }
     context.startActivity(intent)
