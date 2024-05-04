@@ -60,7 +60,7 @@ fun WorkoutScreen() {
         listOf(
             Exercise("Jumping Jacks", R.drawable.ic_jumping_jacks),
             Exercise("High Knees running", R.drawable.ic_high_knees_running_in_place),
-            /*Exercise("Body Squat", R.drawable.ic_squat),
+            Exercise("Body Squat", R.drawable.ic_squat),
             Exercise("Lunges", R.drawable.ic_lunge),
             Exercise("Wall Sit", R.drawable.ic_wall_sit),
             Exercise("Chair Step Up", R.drawable.ic_step_up_onto_chair),
@@ -69,7 +69,7 @@ fun WorkoutScreen() {
             Exercise("Pushup & Rotation", R.drawable.ic_push_up_and_rotation),
             Exercise("Side Plank", R.drawable.ic_side_plank),
             Exercise("Abdominal Crunch", R.drawable.ic_abdominal_crunch),
-            Exercise("Plank", R.drawable.ic_plank),*/
+            Exercise("Plank", R.drawable.ic_plank),
         )
     }
 
