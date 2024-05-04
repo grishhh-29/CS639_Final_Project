@@ -56,127 +56,127 @@ class SignUpActivity : ComponentActivity() {
         navigateToLogin(context)
     }
 }
-    @SuppressLint("UnrememberedMutableState")
-    @Composable
-    fun SignUpScreen(auth:FirebaseAuth) {
-        val messageVal = remember { mutableStateOf("") }
-        val errMessage = remember { mutableStateOf("") }
-        val emailState = remember { mutableStateOf("") }
-        val passwordState = remember { mutableStateOf("") }
-        val confirmPasswordState = remember { mutableStateOf("") }
-        val context = LocalContext.current
+@SuppressLint("UnrememberedMutableState")
+@Composable
+fun SignUpScreen(auth:FirebaseAuth) {
+    val messageVal = remember { mutableStateOf("") }
+    val errMessage = remember { mutableStateOf("") }
+    val emailState = remember { mutableStateOf("") }
+    val passwordState = remember { mutableStateOf("") }
+    val confirmPasswordState = remember { mutableStateOf("") }
+    val context = LocalContext.current
 
-        Box(
-            modifier = Modifier.fillMaxSize()
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        // Background image
+        Image(
+            painter = painterResource(id = R.drawable.getstarted),
+            contentDescription = "Background Image",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillBounds
+        )
+
+        // Content
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Background image
-            Image(
-                painter = painterResource(id = R.drawable.getstarted),
-                contentDescription = "Background Image",
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.FillBounds
-            )
-
-            // Content
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    TextField(
-                        value = emailState.value,
-                        onValueChange = { emailState.value = it },
-                        label = { BasicText(text = "Email") },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-                    var passwordVisibility by remember { mutableStateOf(false) }
-                    TextField(
-                        value = passwordState.value,
-                        onValueChange = {
-                            passwordState.value = it
-                        },
-                        label = { BasicText(text = "Password") },
-                        visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
-                        modifier = Modifier.fillMaxWidth(),
-                        trailingIcon = {
-                            IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
-                                Icon(
-                                    painter = painterResource(id = if (passwordVisibility) R.drawable.ic_visibility else R.drawable.ic_visibility_off),
-                                    contentDescription = if (passwordVisibility) "Hide Password" else "Show Password"
-                                )
-                            }
+                Spacer(modifier = Modifier.height(16.dp))
+                TextField(
+                    value = emailState.value,
+                    onValueChange = { emailState.value = it },
+                    label = { BasicText(text = "Email") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                var passwordVisibility by remember { mutableStateOf(false) }
+                TextField(
+                    value = passwordState.value,
+                    onValueChange = {
+                        passwordState.value = it
+                    },
+                    label = { BasicText(text = "Password") },
+                    visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
+                    modifier = Modifier.fillMaxWidth(),
+                    trailingIcon = {
+                        IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
+                            Icon(
+                                painter = painterResource(id = if (passwordVisibility) R.drawable.ic_visibility else R.drawable.ic_visibility_off),
+                                contentDescription = if (passwordVisibility) "Hide Password" else "Show Password"
+                            )
                         }
-                    )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-                    var passwordVisible by remember { mutableStateOf(false) }
-                    TextField(
-                        value = confirmPasswordState.value,
-                        onValueChange = {
-                            confirmPasswordState.value = it
-                            if (passwordState.value != it) {
-                                errMessage.value = "Passwords do not match."
-                            } else {
-                                errMessage.value = ""
-                            }
-                        },
-                        label = { BasicText(text = "Confirm Password") },
-                        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                        modifier = Modifier.fillMaxWidth(),
-                        trailingIcon = {
-                            IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                                Icon(
-                                    painter = painterResource(id = if (passwordVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off),
-                                    contentDescription = if (passwordVisible) "Hide Password" else "Show Password"
-                                )
-                            }
-                        },
-                        isError = errMessage.value.isNotEmpty(),
-                        singleLine = true // Add this line to ensure it's a single line TextField
-                    )
-                    if (errMessage.value.isNotEmpty()) {
-                        BasicText(text = errMessage.value)
                     }
-                    Spacer(modifier = Modifier.height(16.dp))
+                )
 
-                    Button(
-                        onClick = { signUp(auth,context, emailState.value, passwordState.value, confirmPasswordState.value, messageVal) },
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        BasicText(text = "Sign Up")
-                    }
+                Spacer(modifier = Modifier.height(16.dp))
+                var passwordVisible by remember { mutableStateOf(false) }
+                TextField(
+                    value = confirmPasswordState.value,
+                    onValueChange = {
+                        confirmPasswordState.value = it
+                        if (passwordState.value != it) {
+                            errMessage.value = "Passwords do not match."
+                        } else {
+                            errMessage.value = ""
+                        }
+                    },
+                    label = { BasicText(text = "Confirm Password") },
+                    visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                    modifier = Modifier.fillMaxWidth(),
+                    trailingIcon = {
+                        IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                            Icon(
+                                painter = painterResource(id = if (passwordVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off),
+                                contentDescription = if (passwordVisible) "Hide Password" else "Show Password"
+                            )
+                        }
+                    },
+                    isError = errMessage.value.isNotEmpty(),
+                    singleLine = true // Add this line to ensure it's a single line TextField
+                )
+                if (errMessage.value.isNotEmpty()) {
+                    BasicText(text = errMessage.value)
+                }
+                Spacer(modifier = Modifier.height(16.dp))
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                Button(
+                    onClick = { signUp(auth,context, emailState.value, passwordState.value, confirmPasswordState.value, messageVal) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    BasicText(text = "Sign Up")
+                }
 
-                    // Make the "Already have an account? Log in" text clickable
-                    Text(
-                        text = "Already a User? Login",
-                        modifier = Modifier.clickable {
-                            navigateToLogin(context)
-                        },
-                        style = TextStyle(
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 18.sp
-                        )
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Make the "Already have an account? Log in" text clickable
+                Text(
+                    text = "Already a User? Login",
+                    modifier = Modifier.clickable {
+                        navigateToLogin(context)
+                    },
+                    style = TextStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
                     )
+                )
 
-                    if (messageVal.value.isNotEmpty()) {
-                        BasicText(text = messageVal.value)
-                    }
+                if (messageVal.value.isNotEmpty()) {
+                    BasicText(text = messageVal.value)
                 }
             }
         }
     }
+}
 
 
-private fun signUp(auth: FirebaseAuth, context: Context, email: String, password: String, confirmPassword: String, messageVal: MutableState<String>) {
+private fun signUp(auth: FirebaseAuth, context: Context, email: String, password: String, confirmPassword: String,messageVal: MutableState<String>) {
     if (password != confirmPassword) {
         messageVal.value = "Passwords do not match. Please try again."
         return
@@ -201,11 +201,9 @@ private fun signUp(auth: FirebaseAuth, context: Context, email: String, password
         }
 }
 private fun navigateToLogin(context: Context) {
-        val intent = Intent(context, LoginActivity::class.java)
-        context.startActivity(intent)
+    val intent = Intent(context, LoginActivity::class.java).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    }
+    context.startActivity(intent)
     (context as? Activity)?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
 }
-
-
-
-
