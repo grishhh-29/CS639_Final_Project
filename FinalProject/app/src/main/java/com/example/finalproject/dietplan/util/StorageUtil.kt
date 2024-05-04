@@ -52,8 +52,6 @@ class StorageUtil {
                     ).show()
                     // Handle unsuccessful uploads
                 }.addOnSuccessListener { taskSnapshot ->
-                    // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                    // ...
                     Toast.makeText(
                         context,
                         "upload success",

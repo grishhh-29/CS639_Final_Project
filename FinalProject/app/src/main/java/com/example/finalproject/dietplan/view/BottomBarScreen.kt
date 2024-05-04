@@ -19,9 +19,6 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
-// Icon list is below
-//https://fonts.google.com/icons
-
 class BottomBarScreen(
     val route: String,
     val title: String,
