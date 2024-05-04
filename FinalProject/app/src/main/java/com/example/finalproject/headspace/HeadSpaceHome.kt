@@ -259,9 +259,7 @@ fun FeatureItem(
     ) {
         val width = constraints.maxWidth
         val height = constraints.maxHeight
-
-        // Medium colored path
-        val mediumColoredPoint1 = Offset(0f, height * 0.3f)     // Offset: vị trí
+        val mediumColoredPoint1 = Offset(0f, height * 0.3f)
         val mediumColoredPoint2 = Offset(width * 0.1f, height * 0.35f)
         val mediumColoredPoint3 = Offset(width * 0.4f, height * 0.05f)
         val mediumColoredPoint4 = Offset(width * 0.75f, height * 0.7f)
@@ -276,14 +274,11 @@ fun FeatureItem(
             lineTo(
                 width.toFloat() + 100f,
                 height.toFloat() + 100f
-            ) // đảm bảo đã nối ra bên ngoài Box bởi vì Path là 1 đường khép kín. Nếu không nối ra
-            // bên ngoài Box thì nó sẽ tự nối điểm đầu và điểm cuối làm cắt ngang qua Box
+            )
             lineTo(-100f, height + 100f)
             close()
         }
-
-        // Light colored path
-        val lightColoredPoint1 = Offset(0f, height * 0.35f)     // Offset: vị trí
+        val lightColoredPoint1 = Offset(0f, height * 0.35f)
         val lightColoredPoint2 = Offset(width * 0.1f, height * 0.4f)
         val lightColoredPoint3 = Offset(width * 0.3f, height * 0.35f)
         val lightColoredPoint4 = Offset(width * 0.65f, height.toFloat())
@@ -298,8 +293,7 @@ fun FeatureItem(
             lineTo(
                 width.toFloat() + 100f,
                 height.toFloat() + 100f
-            ) // đảm bảo đã nối ra bên ngoài Box bởi vì Path là 1 đường khép kín. Nếu không nối ra
-            // bên ngoài Box thì nó sẽ tự nối điểm đầu và điểm cuối làm cắt ngang qua Box
+            )
             lineTo(-100f, height.toFloat() + 100f)
             close()
         }
@@ -349,7 +343,7 @@ fun FeatureItem(
                             "Tips for sleeping" -> navigateToSleepTips(context)
                             "Sleep meditation" -> navigateToSleepMeditation(context)
                             "Check my Heads-pace Score" -> navigateToMyScore(context)
-                            else -> { /* Do nothing */ }
+                            else -> { /**/ }
                         }
                     }
                     .background(ButtonBlue)

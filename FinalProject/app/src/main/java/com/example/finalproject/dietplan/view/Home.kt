@@ -52,8 +52,7 @@ fun Home(){
                 }
             }
             .addOnFailureListener {
-                // Uh-oh, an error occurred!
-                Log.d("DEBUG" , "Error occured")
+                Log.d("DEBUG" , "Error!!")
             }
     }
 

@@ -64,10 +64,7 @@ class PhotoPick : ComponentActivity() {
                             SingleVideoPicker()
                         }
                     }
-                    /*...*/
                 }
-//                SinglePhotoPicker()
-//                MultiplePhotoPicker()
             }
         }
     }
