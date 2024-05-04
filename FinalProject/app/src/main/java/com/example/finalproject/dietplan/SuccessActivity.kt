@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -41,8 +40,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.edit
@@ -50,13 +51,10 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.finalproject.R
+import com.example.finalproject.headspace.HeadSpaceHome
+import com.example.finalproject.headspace.MyFitness
 import com.example.finalproject.ui.theme.AquaBlue
-import com.example.finalproject.ui.theme.BlueViolet1
 import com.example.finalproject.ui.theme.ButtonBlue
-import com.example.finalproject.ui.theme.DeepBlue
-import com.example.finalproject.ui.theme.LightGreen1
-import com.example.finalproject.ui.theme.LightGreen2
-import com.example.finalproject.ui.theme.PurpleGrey80
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -70,7 +68,6 @@ class SuccessActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()
         sharedPreferences = getSharedPreferences("login_status", Context.MODE_PRIVATE)
-
         // Check if user is not logged in
         if (!sharedPreferences.getBoolean("is_logged_in", false)) {
             navigateToLogin(this)
@@ -79,101 +76,26 @@ class SuccessActivity : ComponentActivity() {
         }
 
         setContent {
-            SuccessScreen(auth, sharedPreferences)
+                SuccessScreen(auth, sharedPreferences)
         }
     }
 }
 @Composable
 fun SuccessScreen(auth: FirebaseAuth, sharedPreferences: SharedPreferences) {
-    var expandedMenu by remember { mutableStateOf(false) }
     val context = LocalContext.current
     val currentUser = auth.currentUser
-    // Check if the current user is signed in with Google
-    val isGoogleSignIn = currentUser?.let {
-        it.providerData.any { userInfo -> userInfo.providerId == GoogleAuthProvider.PROVIDER_ID }
-    } ?: false
-    val user = auth.currentUser
-    val displayName = user?.displayName
     Box(modifier = Modifier.fillMaxSize()) {
-        /*Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-               // text = "Welcome ${displayName ?: ""}",
-                text = "Welcome $displayName",
-                style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 24.sp,
-                    color = Color.Black
-                ),
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-        }
-        Log.d("TAG", "displayName+++: $displayName")*/
-        Spacer(modifier = Modifier.height(16.dp))
         Column(
             modifier = Modifier.fillMaxSize(),
             content = {
                 MyDietPlannerCard(auth,context)
             }
         )
-        // Menu button at Bottom right
-        IconButton(onClick = { expandedMenu = true }, modifier = Modifier.align(Alignment.TopEnd)) {
-            Icon(imageVector = Icons.Default.MoreVert, contentDescription = "Menu")
-        }
-
-        DropdownMenu(
-                expanded = expandedMenu,
-                onDismissRequest = { expandedMenu = false },
-                modifier = Modifier.width(IntrinsicSize.Min)
-            ) {
-                if (!isGoogleSignIn) {
-                    DropdownMenuItem(
-                        text = { Text("Reset Password") },
-                        onClick = {
-                            Toast.makeText(
-                                context,
-                                "Redirecting to Password Reset",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            navigateToResetPassword(context)
-                        }
-                    )
-                }
-                DropdownMenuItem(
-                    text = { Text("Support") },
-                    onClick = {
-                        Toast.makeText(
-                            context,
-                            "Contact: vs42370n@pace.edu",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                )
-                DropdownMenuItem(
-                    text = { Text("Logout") },
-                    onClick = {
-                        logout(context, sharedPreferences)
-                    }
-                )
-            }
         Spacer(modifier = Modifier.width(16.dp))
-        /*Row(
-            modifier = Modifier
-                .padding(16.dp)
-        ) {
-            Text(
-                text = "Menu",
-            )
-        }*/
         BottomMenu(
             items = listOf(
                 BottomMenuContent("Home", R.drawable.ic_home),
-                BottomMenuContent("Music", R.drawable.ic_music),
+                BottomMenuContent("Support", R.drawable.ic_bubble),
                 BottomMenuContent("Profile", R.drawable.ic_profile)
             ),
             modifier = Modifier.align(Alignment.BottomCenter)
@@ -213,10 +135,10 @@ fun BottomMenu(
                 when (index) {
                     0 -> navigateToSuccessActivity(context) // Navigate to SuccessActivity when "Home" is clicked
                     1 -> {
-                        navigateToResetPassword(context)
+                        navigateToSupportScreen(context)
                     }
                     2 -> {
-                        navigateToUserProfile(context)
+                        navigateToProfileSection(context)
                     }
                 }
             }
@@ -315,7 +237,6 @@ fun MyDietPlannerCard(auth: FirebaseAuth,context: Context) {
                     .padding(horizontal = 16.dp)
                     .fillMaxWidth(),
                 onClick = {
-                    // Navigate to GoalSelectionActivity or screen here
                     Toast.makeText(context, "Redirecting to your Goal", Toast.LENGTH_SHORT).show()
                     navigateToMyDietPlanner(context)
                 }
@@ -365,6 +286,7 @@ fun MyDietPlannerCard(auth: FirebaseAuth,context: Context) {
                     // Handle click for Begin your Workout card
                     Toast.makeText(context, "Lets talk...", Toast.LENGTH_SHORT).show()
                     // Add navigation logic or any other action here
+                    navigateToHeadSpaceHome(context)
                 }
             ) {
                 Column(
@@ -416,12 +338,17 @@ private fun navigateToLogin(context: Context) {
     }
     context.startActivity(intent)
 }
-private fun navigateToResetPassword(context: Context) {
-    val intent = Intent(context, PasswordResetScreen::class.java).apply {
-        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+private fun navigateToSupportScreen(context: Context) {
+    if (context !is SupportScreen) {
+        val intent = Intent(context, SupportScreen::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        context.startActivity(intent)
+        (context as? Activity)?.overridePendingTransition(
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
-    context.startActivity(intent)
-    (context as? Activity)?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
 }
 private fun navigateToSuccessActivity(context: Context) {
     // Check if the current activity is not already SuccessActivity
@@ -433,13 +360,22 @@ private fun navigateToSuccessActivity(context: Context) {
         (context as? Activity)?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 }
-private fun navigateToUserProfile(context: Context) {
-    // Check if the current activity is not already SuccessActivity
-    if (context !is UserProfile) {
-        val intent = Intent(context, UserProfile::class.java).apply {
+private fun navigateToProfileSection(context: Context) {
+    // Check if the current activity is not already ProfileSection
+    if (context !is ProfileSection) {
+        val intent = Intent(context, ProfileSection::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         context.startActivity(intent)
         (context as? Activity)?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 }
+private fun navigateToHeadSpaceHome(context: Context) {
+    val intent = Intent(context, HeadSpaceHome::class.java).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    }
+    context.startActivity(intent)
+    (context as? Activity)?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+}
+
+
