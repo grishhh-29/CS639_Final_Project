@@ -41,7 +41,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import com.example.finalproject.R
-import com.example.finalproject.dietplan.getBMICategory
 import com.example.finalproject.headspace.databaseclass.VideoDbHelper
 import com.example.finalproject.ui.theme.TextWhite
 

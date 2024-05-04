@@ -126,7 +126,7 @@ fun MainScreen() {
         BottomMenu(
             items = listOf(
                 BottomMenuContent("Home", R.drawable.ic_home),
-                BottomMenuContent("Music", R.drawable.ic_music),
+                BottomMenuContent("Support", R.drawable.ic_bubble),
                 BottomMenuContent("Profile", R.drawable.ic_profile)
             ),
             modifier = Modifier.align(Alignment.BottomCenter)

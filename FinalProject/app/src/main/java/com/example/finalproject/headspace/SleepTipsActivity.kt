@@ -98,15 +98,15 @@ fun ExpandableTipSection(title: String, content: String) {
     var expanded by remember { mutableStateOf(false) }
     var bookmarked by remember { mutableStateOf(false) }
     val context = LocalContext.current
-    /*val sharedPreferences = context.getSharedPreferences(
+    val sharedPreferences = context.getSharedPreferences(
         "FavoriteTips",
         Context.MODE_PRIVATE
     )
 
-    val tipKey = "Tip_$title"*/
+    val tipKey = "Tip_$title"
 
     // Load the favorite status from SharedPreferences
-    //bookmarked = sharedPreferences.getBoolean(tipKey, false)
+    bookmarked = sharedPreferences.getBoolean(tipKey, false)
 
     Column(
         modifier = Modifier
@@ -136,7 +136,7 @@ fun ExpandableTipSection(title: String, content: String) {
                     onClick = {
                         bookmarked = !bookmarked
                         // Save the favorite status to SharedPreferences
-                        //sharedPreferences.edit().putBoolean(tipKey, bookmarked).apply()
+                        sharedPreferences.edit().putBoolean(tipKey, bookmarked).apply()
                         // Increment the Headspace score by 10 if the content is marked as favorite
                         if (bookmarked) {
                             HeadspaceScore.setScore(HeadspaceScore.getScore() + 10)

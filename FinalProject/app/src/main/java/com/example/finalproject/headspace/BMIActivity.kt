@@ -1,5 +1,8 @@
 package com.example.finalproject.headspace
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -38,6 +41,12 @@ class BMIActivity : ComponentActivity()  {
             BMIActivityContent()
         }
     }
+    @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val context = this
+        navigateToMyFitnessActivity(context)
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,7 +63,7 @@ fun BMIActivityContent() {
     ) {
         // Background image
         Image(
-            painter = painterResource(id = R.drawable.getstarted),
+            painter = painterResource(id = R.drawable.bmi_back),
             contentDescription = "Background Image",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.FillBounds
@@ -181,4 +190,11 @@ private fun getMessage(bmi: Float): String {
         bmi < 30f -> "Oops! You really need to take care of yourself! Workout maybe!"
         else -> "Please consult a dietician"
     }
+}
+private fun navigateToMyFitnessActivity(context: Context) {
+    val intent = Intent(context, MyFitness::class.java).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    }
+    context.startActivity(intent)
+    (context as? Activity)?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
 }
